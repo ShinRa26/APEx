@@ -26,6 +26,7 @@ public class Train extends Thread
 	{
 		try
 		{
+			Train t = new Train();
 			System.out.println(getName() + " created.");
 			Random r = new Random();
 			Integer wait = r.nextInt(5000);
