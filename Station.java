@@ -49,4 +49,8 @@ public class Station extends Segment
 		
 		return occupied;
 	}
+	
+	/* Accessors */
+	public Integer getLength() {return length;}
+	public Integer getCap() {return cap;}
 }

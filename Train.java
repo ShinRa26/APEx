@@ -1,9 +1,12 @@
 import java.util.*;
+import java.util.concurrent.locks.*;
 
 public class Train extends Thread
 {
 	private Integer speed;
 	private String type;
+	private ReentrantLock trainLock = new ReentrantLock();
+	private Condition safeToMove = trainLock.newCondition();
 	
 	/* Constructor */
 	public Train()
@@ -26,13 +29,35 @@ public class Train extends Thread
 	{
 		try
 		{
-			Train t = new Train();
-			System.out.println(getName() + " created.");
-			Random r = new Random();
-			Integer wait = r.nextInt(5000);
-			Thread.sleep(wait);
+			Thread.sleep(1000);
 		}
 		catch(InterruptedException e){}
+	}
+	
+	/**
+	 * Method to move a train into the next segment
+	 * @param s The segment to move to
+	 */
+	public void moveTrain(Segment s)
+	{
+		trainLock.lock();
+		try
+		{
+			Integer tSpeed = this.getSpeed();
+			Integer sLength = s.getLength();
+			Thread.sleep((tSpeed/sLength) * 1000);
+			
+			while(s.isFull())
+				safeToMove.await();
+			
+			s.addTrain(this);
+			
+		}
+		catch(InterruptedException e){}
+		finally
+		{
+			trainLock.unlock();
+		}
 	}
 	
 	public Integer getSpeed(){return speed;}

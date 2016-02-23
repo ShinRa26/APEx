@@ -1,10 +1,7 @@
 import java.util.*;
-import java.util.concurrent.locks.*;
 
 public class Railway extends Thread
 {
-	private ReentrantLock trainLock = new ReentrantLock();
-	private Condition safeToMove = trainLock.newCondition();
 	private List<Segment> line;
 	private Train t;
 	
@@ -28,8 +25,15 @@ public class Railway extends Thread
 	 */
 	public void run()
 	{
-		t = new Train();
-		t.start();
+		try
+		{
+			Random r = new Random();
+			Integer wait = r.nextInt(7000) + 1;
+			Thread.sleep(wait);
+			t = new Train();
+			t.start();
+		}
+		catch(InterruptedException e){}
 	}
 	
 	/**

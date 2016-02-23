@@ -48,4 +48,8 @@ public class Track extends Segment
 		
 		return occupied;
 	}
+	
+	/* Accessors */
+	public Integer getLength() {return length;}
+	public Integer getCap() {return cap;}
 }
