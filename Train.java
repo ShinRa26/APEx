@@ -22,19 +22,6 @@ public class Train extends Thread
 	
 	
 	/**
-	 * Run method for Train thread
-	 * !!!MAY NEED MORE INFO IN IT LIKE AN ACTUAL FUCKING TRAIN!!!
-	 */
-	public void run()
-	{
-		try
-		{
-			Thread.sleep(1000);
-		}
-		catch(InterruptedException e){}
-	}
-	
-	/**
 	 * Method to move a train into the next segment
 	 * @param s The segment to move to
 	 */
@@ -45,13 +32,12 @@ public class Train extends Thread
 		{
 			Integer tSpeed = this.getSpeed();
 			Integer sLength = s.getLength();
-			Thread.sleep((tSpeed/sLength) * 1000);
+			Thread.sleep((sLength/tSpeed) * 1000);
 			
 			while(s.isFull())
 				safeToMove.await();
 			
 			s.addTrain(this);
-			
 		}
 		catch(InterruptedException e){}
 		finally
@@ -60,6 +46,17 @@ public class Train extends Thread
 		}
 	}
 	
+	/**
+	 * Method to signal any sleeping threads that the segment has a free space
+	 * @param s The segment to clear.
+	 */
+	public void signalTrain(Segment s)
+	{
+		s.removeTrain(this);
+		safeToMove.signalAll();
+	}
+	
+	/* Accessors */
 	public Integer getSpeed(){return speed;}
 	public String getType(){return type;}
 }

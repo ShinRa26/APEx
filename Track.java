@@ -49,6 +49,24 @@ public class Track extends Segment
 		return occupied;
 	}
 	
+	/**
+	 * Method for removing a train from a segment, only once it has been been moved.
+	 * @param t The train to be moved.
+	 */
+	Train[] removeTrain(Train t)
+	{
+		for(int i = 0; i < occupied.length; i++)
+		{
+			if(t == occupied[i])
+			{
+				occupied[i] = null;
+				break;
+			}
+		}
+		
+		return occupied;
+	}
+	
 	/* Accessors */
 	public Integer getLength() {return length;}
 	public Integer getCap() {return cap;}

@@ -7,6 +7,7 @@ public abstract class Segment
 	
 	abstract boolean isFull();
 	abstract Train[] addTrain(Train t);
+	abstract Train[] removeTrain(Train t);
 	abstract Integer getLength();
 	abstract Integer getCap();
 }

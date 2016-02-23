@@ -41,11 +41,31 @@ public class Station extends Segment
 	Train[] addTrain(Train t)
 	{
 		for(int i = 0; i < occupied.length; i++)
+		{
 			if(occupied[i] == null)
 			{
 				occupied[i] = t;
 				break;
 			}
+		}
+		
+		return occupied;
+	}
+	
+	/**
+	 * Method for removing a train from the segment, only once moved.
+	 * @param t The train to be removed
+	 */
+	Train[] removeTrain(Train t)
+	{
+		for(int i = 0; i < occupied.length; i++)
+		{
+			if(t == occupied[i])
+			{
+				occupied[i] = null;
+				break;
+			}
+		}
 		
 		return occupied;
 	}

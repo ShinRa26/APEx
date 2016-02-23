@@ -17,6 +17,7 @@ public class Railway extends Thread
 			else
 				line.add(new Track());
 		}
+
 	}
 	
 	/**
@@ -25,23 +26,17 @@ public class Railway extends Thread
 	 */
 	public void run()
 	{
-		try
+		for(;;)
 		{
-			Random r = new Random();
-			Integer wait = r.nextInt(7000) + 1;
-			Thread.sleep(wait);
-			t = new Train();
-			t.start();
+			try
+			{
+				Random r = new Random();
+				Integer wait = r.nextInt(7000) + 1;
+				Thread.sleep(wait);
+				t = new Train();
+				line.get(0).addTrain(t);
+			}
+			catch(InterruptedException e){}
 		}
-		catch(InterruptedException e){}
-	}
-	
-	/**
-	 * Method to move a train onto the next segment
-	 * !!!NEEDS FIXING!!!
-	 */
-	public void moveTrain()
-	{
-		//PH
 	}
 }
