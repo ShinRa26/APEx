@@ -35,8 +35,12 @@ public class Train extends Thread
 			Thread.sleep((sLength/tSpeed) * 1000);
 			
 			while(s.isFull())
+			{
+				System.out.println(getName() + " is locked and waiting");
 				safeToMove.await();
+			}
 			
+			System.err.println(getName() + " cleared");
 			s.addTrain(this);
 		}
 		catch(InterruptedException e){}
@@ -50,10 +54,11 @@ public class Train extends Thread
 	 * Method to signal any sleeping threads that the segment has a free space
 	 * @param s The segment to clear.
 	 */
-	public void signalTrain(Segment s)
+	public void removeTrain(Segment s)
 	{
 		s.removeTrain(this);
-		safeToMove.signalAll();
+		//safeToMove.signalAll();
+		
 	}
 	
 	/* Accessors */
