@@ -6,7 +6,7 @@ public class Station extends Segment
 	public Station()
 	{
 		Random r = new Random();
-		length = r.nextInt(7) + 1;
+		length = r.nextInt(50) + 1;
 		cap = r.nextInt(4) + 1;
 		space = new Train[cap];
 	}

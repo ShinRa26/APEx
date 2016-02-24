@@ -1,10 +1,8 @@
-import java.util.*;
-
 public abstract class Segment 
 {
 	protected Integer length;
 	protected Integer cap;
-	protected Train[] space;
+	public Train[] space;
 	
 	/**
 	 * Method to check if the current segment's capacity is full
@@ -51,11 +49,14 @@ public abstract class Segment
 	{
 		for(int i = 0; i < space.length; i++)
 		{
-			if(t == space[i])
+			if(t == this.space[i])
 			{
 				space[i] = null;
+				System.out.println("Removed train!");
 				break;
 			}
+			else if(this.space[i] == null)
+				System.err.println("Cannot remove train...");
 		}
 	}
 	

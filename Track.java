@@ -6,7 +6,7 @@ public class Track extends Segment
 	public Track()
 	{
 		Random r = new Random();
-		length = r.nextInt(20) + 10;
+		length = r.nextInt(100) + 10;
 		cap = 1;
 		space = new Train[cap];
 	}

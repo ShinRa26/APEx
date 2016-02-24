@@ -1,9 +1,16 @@
+import java.util.*;
 
 public class Display 
 {
-	public static void main(String[] args)
+	private List<Segment> l;
+	
+	public Display(List<Segment> l)
 	{
-		Railway r = new Railway(5);
-		r.start();
+		this.l = l;
+	}
+	
+	public String showStatus()
+	{
+		return "";
 	}
 }

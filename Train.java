@@ -23,12 +23,25 @@ public class Train
 	/**
 	 * Method to move a train onto the next segment if there is space.
 	 */
-	public void moveTrain()
+	public void moveTrain(Segment s)
 	{
 		tLock.lock();
 		try
 		{
-			Thread.sleep(1000);
+			Integer tSpeed = this.speed;
+			Integer sLength = s.length;
+			Integer wait = (sLength/tSpeed);
+			Thread.sleep(wait);
+			
+			while(s.isFull())
+			{
+				System.out.println("Locked and waiting...");
+				move.await();
+			}
+			
+			s.addTrain(this);
+			move.signalAll();
+			System.out.println("Cleared, signalling.");
 		}
 		catch(InterruptedException e){}
 		finally
@@ -40,4 +53,5 @@ public class Train
 	/* Accessors */
 	public Integer getSpeed(){return speed;}
 	public String getType(){return type;}
+	public Train getTrain(){return this;}
 }

@@ -24,18 +24,24 @@ public class Railway extends Thread
 			try
 			{
 				Random r = new Random();
-				Integer wait = r.nextInt(10000) + 1000;
+				Integer wait = r.nextInt(5000) + 1000;
 				Thread.sleep(wait);
-				Train t = new Train();
 				System.out.println(l.get(0).space.length);
 				if(!l.get(0).isFull())
 				{
+					Train t = new Train();
+					//System.err.println("Train ID: " + t.getTrain());
+					TrainThread tt = new TrainThread(t, l);
 					l.get(0).addTrain(t);
-					System.out.println("Added Train");
+					tt.start();
 				}
 				else
-					System.out.println("Full");
-				
+				{
+					System.out.println("Home station full...");
+					for(int i = 0; i < l.get(0).space.length; i++)
+						System.err.println(l.get(0).space[i]);
+					Thread.sleep(5000);
+				}
 			}
 			catch(InterruptedException e){}
 		}
