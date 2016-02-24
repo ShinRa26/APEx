@@ -11,6 +11,23 @@ public class Display
 	
 	public String showStatus()
 	{
-		return "";
+		String trainLine = "";
+		String segment = "";
+		
+		for(int i = 0; i < l.size(); i++)
+		{
+			if(i%2 == 0)
+				segment = "|----Station------|";
+			else
+				segment = "|----Track------|";
+			
+			for(;;)
+			{
+				trainLine+=segment;
+				break;
+			}
+		}
+		
+		return trainLine;
 	}
 }

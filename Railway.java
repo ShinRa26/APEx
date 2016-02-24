@@ -46,4 +46,7 @@ public class Railway extends Thread
 			catch(InterruptedException e){}
 		}
 	}
+	
+	/* Accessors */
+	public List<Segment> getRailway(){return l;}
 }
