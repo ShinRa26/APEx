@@ -1,64 +1,66 @@
+import java.util.*;
 
 public abstract class Segment 
 {
 	protected Integer length;
 	protected Integer cap;
-	protected Train[] occupied;
+	protected Train[] space;
 	
 	/**
-	 * Method for determining if a segment is full
-	 * @return boolean telling if it's full or not
+	 * Method to check if the current segment's capacity is full
+	 * @return Boolean indicative of whether or not the segment is at capacity
 	 */
 	public boolean isFull()
 	{
 		int counter = 0;
-		for(int i = 0; i < this.occupied.length; i++)
+		for(int i = 0; i < space.length; i++)
 		{
-			if(this.occupied[i] != null)
+			if(space[i] != null)
 				counter++;
+			else
+				break;
 		}
 		
-		if(counter == this.occupied.length)
+		if(counter == space.length)
 			return true;
-		else
+		else 
 			return false;
 	}
 	
 	/**
-	 * Method for adding a Train to the segment
-	 * @return the array containing the newly added train
+	 * Method to add a train to the first available space in the segment
+	 * @param t The train to add.
 	 */
-	public Train[] addTrain(Train t)
+	public void addTrain(Train t)
 	{
-		for(int i = 0; i < this.occupied.length; i++)
-			if(this.occupied[i] == null)
-			{
-				this.occupied[i] = t;
-				break;
-			}
-		
-		return this.occupied;
-	}
-	
-	/**
-	 * Method for removing a train from a segment, only once it has been been moved.
-	 * @param t The train to be moved.
-	 */
-	public Train[] removeTrain(Train t)
-	{
-		for(int i = 0; i < this.occupied.length; i++)
+		for(int i = 0; i < space.length; i++)
 		{
-			if(t == this.occupied[i])
+			if(space[i] == null)
 			{
-				this.occupied[i] = null;
+				space[i] = t;
 				break;
 			}
 		}
-		
-		return this.occupied;
 	}
 	
+	/**
+	 * Method to remove a selected train from a segment.
+	 * @param t  The train to remove
+	 */
+	public void removeTrain(Train t)
+	{
+		for(int i = 0; i < space.length; i++)
+		{
+			if(t == space[i])
+			{
+				space[i] = null;
+				break;
+			}
+		}
+	}
 	
-	public  Integer getLength(){return this.length;}
-	public Integer getCap(){return this.cap;}
+	/* Accessors */
+	public Integer getLength() {return length;}
+	public Integer getCap() {return cap;}
+	public Train[] getSpaces() {return space;}
 }

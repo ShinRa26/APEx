@@ -2,15 +2,12 @@ import java.util.*;
 
 public class Track extends Segment
 {
-	private Train[] t;
-	
 	/* Constructor */
 	public Track()
 	{
-		Random l = new Random();
-		this.length = l.nextInt(20) + 1;
-		this.cap = 1;
-		t = new Train[cap];
-		this.occupied = t;
+		Random r = new Random();
+		length = r.nextInt(20) + 10;
+		cap = 1;
+		space = new Train[cap];
 	}
 }

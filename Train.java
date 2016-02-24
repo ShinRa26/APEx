@@ -1,12 +1,12 @@
 import java.util.*;
 import java.util.concurrent.locks.*;
 
-public class Train extends Thread
+public class Train 
 {
 	private Integer speed;
 	private String type;
-	private ReentrantLock trainLock = new ReentrantLock();
-	private Condition safeToMove = trainLock.newCondition();
+	private ReentrantLock tLock = new ReentrantLock();
+	private Condition move = tLock.newCondition();
 	
 	/* Constructor */
 	public Train()
@@ -20,45 +20,21 @@ public class Train extends Thread
 			type = "Local";
 	}
 	
-	
 	/**
-	 * Method to move a train into the next segment
-	 * @param s The segment to move to
+	 * Method to move a train onto the next segment if there is space.
 	 */
-	public void moveTrain(Segment s)
+	public void moveTrain()
 	{
-		trainLock.lock();
+		tLock.lock();
 		try
 		{
-			Integer tSpeed = this.getSpeed();
-			Integer sLength = s.getLength();
-			Thread.sleep((sLength/tSpeed) * 1000);
-			
-			while(s.isFull())
-			{
-				System.out.println(getName() + " is locked and waiting");
-				safeToMove.await();
-			}
-			
-			System.err.println(getName() + " cleared");
-			s.addTrain(this);
+			Thread.sleep(1000);
 		}
 		catch(InterruptedException e){}
 		finally
 		{
-			trainLock.unlock();
+			tLock.unlock();
 		}
-	}
-	
-	/**
-	 * Method to signal any sleeping threads that the segment has a free space
-	 * @param s The segment to clear.
-	 */
-	public void removeTrain(Segment s)
-	{
-		s.removeTrain(this);
-		//safeToMove.signalAll();
-		
 	}
 	
 	/* Accessors */
