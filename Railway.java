@@ -17,6 +17,9 @@ public class Railway extends Thread
 		}
 	}
 	
+	/**
+	 * Run method for the Railway thread
+	 */
 	public void run()
 	{
 		for(;;)

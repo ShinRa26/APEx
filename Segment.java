@@ -60,6 +60,13 @@ public abstract class Segment
 		}
 	}
 	
+	/**
+	 * Method to print out the status of the Segment. If it has trains within it or not.
+	 * @param t The current train thread
+	 * @return String showing the status of the segment
+	 */
+	abstract String printSegment(TrainThread t);
+	
 	/* Accessors */
 	public Integer getLength() {return length;}
 	public Integer getCap() {return cap;}
