@@ -52,22 +52,13 @@ public abstract class Segment
 			if(t == this.space[i])
 			{
 				space[i] = null;
-				System.out.println("Removed train!");
 				break;
 			}
-			else if(this.space[i] == null)
-				System.err.println("Cannot remove train...");
 		}
 	}
 	
-	/**
-	 * Method to print out the status of the Segment. If it has trains within it or not.
-	 * @param t The current train thread
-	 * @return String showing the status of the segment
-	 */
-	abstract String printSegment(TrainThread t);
 	
-	/* Accessors */
+	/*** Accessors ***/
 	public Integer getLength() {return length;}
 	public Integer getCap() {return cap;}
 	public Train[] getSpaces() {return space;}

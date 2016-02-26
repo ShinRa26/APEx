@@ -5,10 +5,11 @@ public class Train
 {
 	private Integer speed;
 	private String type;
+	private String id;
 	private ReentrantLock tLock = new ReentrantLock();
 	private Condition move = tLock.newCondition();
 	
-	/* Constructor */
+	/*** Constructor ***/
 	public Train()
 	{
 		Random r = new Random();
@@ -30,18 +31,18 @@ public class Train
 		{
 			Integer tSpeed = this.speed;
 			Integer sLength = s.length;
-			Integer wait = (sLength/tSpeed);
+			Integer wait = (sLength/tSpeed)*1000;
 			Thread.sleep(wait);
 			
 			while(s.isFull())
 			{
-				System.out.println("Locked and waiting...");
+				System.err.println("Locked and waiting...");
 				move.await();
 			}
 			
 			s.addTrain(this);
 			move.signalAll();
-			System.out.println("Cleared, signalling.");
+			//System.out.println("Cleared, signalling.");
 		}
 		catch(InterruptedException e){}
 		finally
@@ -50,8 +51,9 @@ public class Train
 		}
 	}
 	
-	/* Accessors */
+	/*** Accessors ***/
 	public Integer getSpeed(){return speed;}
 	public String getType(){return type;}
-	public Train getTrain(){return this;}
+	public String getId(){return id;}
+	public void setId(String n){id = n;}
 }

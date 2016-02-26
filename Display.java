@@ -4,7 +4,7 @@ public class Display
 {
 	private List<Segment> l;
 	
-	/* Constructor */
+	/*** Constructor ***/
 	public Display(List<Segment> l)
 	{
 		this.l = l;
@@ -16,23 +16,37 @@ public class Display
 	 */
 	public String showStatus()
 	{
-		String trainLine = "";
+		String status = "";
 		String segment = "";
+
 		
 		for(int i = 0; i < l.size(); i++)
 		{
-			if(i%2 == 0)
-				segment = "|----Station------|";
-			else
-				segment = "|----Track------|";
+			String[] id = {"-","-","-","-"};
 			
-			for(;;)
+			if(i % 2 == 0)
 			{
-				trainLine+=segment;
-				break;
+				for(int j = 0; j < l.get(i).space.length; j++)
+				{
+					if(l.get(i).space[j] != null)
+						id[j] = l.get(i).space[j].getId();
+				}
+				
+				segment = String.format("|----Station--%s%s%s%s|", id[0],id[1],id[2],id[3]);
 			}
+			else
+			{
+				for(int j = 0; j < l.get(i).space.length; j++)
+				{
+					if(l.get(i).space[j] != null)
+						id[j] = l.get(i).space[j].getId();
+				}
+				segment = String.format("|----Track--%s%s%s%s|", id[0],id[1],id[2],id[3]);
+			}
+			
+			status += segment;
 		}
-		
-		return trainLine;
+		System.out.println(status);
+		return status;
 	}
 }
